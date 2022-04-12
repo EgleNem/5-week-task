@@ -15,6 +15,11 @@ console.log('---2---');
 for (let i = 1; i <= 10; i++) {
     console.log(i);
   }
+
+  for (let i = 1; i < 11; i++) {
+    console.log(i);
+}
+
 // 3. Naudojant for ciklą, išvesti į konsolę skaičius nuo 0, 2, 4, 6, 8, 10. (5 taškai)
 console.log('---3---');
 
@@ -23,10 +28,21 @@ for (let i = -1; i <= 10; i++) {
     console.log(i);
   }
 
+  for (let i = 0; i < 11; i+=2) {
+    console.log(i);
+}
   console.log('---4---');
 // 4. Naudojant for ciklą, sugeneruoti penkis atsitiktinius skaičius nuo 1 iki 10. Išvesti juos konsolėje. (5 taškai)
 for (i = 0; i < 5; i++) {
     console.log(Math.floor(Math.random()*10)+1);
+}
+
+function rand(min,max) {
+    return Math.floor(Math.random()* (max-min+1)+min);
+}
+
+for (let i = 0; i < 5; i++) {
+    console.log(rand(1,10));
 }
 console.log('---5---');
 // 5. Naudojant while ciklą, spausdinti atsitiktinius skaičius nuo 1 iki 10. Paskutinis atspausdintas skaičius turi būti 5. (7 taškai)
@@ -37,19 +53,64 @@ while (m !== 5) {
   console.log(m);
 }
 
+let n;
+
+while (n !== 5) {
+    n = rand(1, 10);
+    console.log(n);
+}
+
 console.log('---6---');
 // 6. Sukurti masyvą, kurio ilgis būtų nuo 20 iki 30, o reikšmės būtų skaičiai nuo 10 iki 30. Surasti didžiausią masyvo reikšmę, NENAUDOJANT sort() bei Math.max() funkcijų. (7 taškai)
-// const masyvoIlgis = 20 + Math.floor(Math.random() * 11); 
-// masyvas = [];
-// nr = 0;
-// for (let i = 0; i < 30; i++) {
-//     masyvas[i] = ++nr;
-//     }
-// console.log(masyvas);
-// console.log(masyvas.length);
 
+
+let masyvas = [];
+let max = 9;
+
+for (let i = 0; i < rand(20,30); i++) {
+    masyvas.push(rand(10, 30));
+}
+console.log(masyvas);
+
+for (let i = 0; i < masyvas.length; i++){
+    if (masyvas[i] > max){
+        max = masyvas[i];
+    }
+}
+console.log('max: ' , max);
 
 // 7. Sugeneruokite masyvą, kurio reikšmės atsitiktinės raidės A, B, C ir D, o ilgis 100. Suskaičiuokite kiek yra kiekvienos raidės. (7 taškai)
+const raides = ['A', 'B', 'C', 'D'];
+
+const masyvas7 = [];
+
+for (let i = 0; i < 100; i++) {
+    masyvas7.push(raides[rand(0,3)]);
+}
+
+console.log(masyvas7);
+
+let countA = 0;
+let countB = 0;
+let countC = 0;
+let countD = 0;
+
+for (let i = 0; i < masyvas7.length; i++) {
+    if (masyvas7[i] === 'A'){
+        countA++;
+    }
+    if (masyvas7[i] === 'B'){
+        countB++;
+    }
+    if (masyvas7[i] === 'C'){
+        countC++;
+    }
+    if (masyvas7[i] === 'D'){
+        countD++;
+    }
+}
+
+console.log(`Raidžių masyve yra: A: ${countA}, B: ${countB}, C: ${countC}, D: ${countD}`);
 
 console.log('---8---');
 // 8. Parašyti funkciją - lygineSuma. Funkcijos parametrai - du kintamieji. Testų reikalavimai - abu kitamieji turi būti arba skaičiai arba masyvai(negali būti vienas skaičius, kitas masyvas).
@@ -81,17 +142,35 @@ console.log(t1);
 // 9. Parašyti funkciją pirminisSkaicius. Funkcija turi vieną kintamąjį. Turi būti patikrinimas, kad kintamasis yra skaičius. Funkcija turi grąžinti ar pateiktas skaičius yra pirminis( pirminis skaičius yra tas, kuris dalinasi tik iš savęs ir tik iš vieneto be liekanos.) (10 taškų)
 // console.log('---9---');
 
-function pirminisSkaicius(x) {
-    if (typeof x==='number' && x%x===0 && x%1===0 && x%2!==0) {
-        return `Skaicius ${x} yra priminis`
+function pirminisSkaicius(a) {
+    if (typeof a !== 'number') {
+        return 'Pateiktas kintamasis nėra skaičius';
     }
-    else  if (x===2); {
-    return `Skaicius ${x} yra priminis`
+    let count = 0;
+    for (let i = 1; i <= a; i++){
+        if (a % i === 0) {
+            count++;
+        }
     }
- else if {return `Skaicius ${x} nera priminis`
-}}
-console.log(pirminisSkaicius(2));
+    if (count < 2) {
+        return 'Įvestas blogas skaičius';
+    }
+    if (count === 2) {
+        return 'Įvestas skaičius yra pirminis';
+    }
+    if (count > 2) {
+        return 'Įvestas skaičius yra sudėtinis';
+    }
+}
 
+console.log(pirminisSkaicius('asdf'));
+console.log(pirminisSkaicius([4,4,'sdf']));
+console.log(pirminisSkaicius(0));
+console.log(pirminisSkaicius(1));
+console.log(pirminisSkaicius(2));
+console.log(pirminisSkaicius(3));
+console.log(pirminisSkaicius(15));
+console.log(pirminisSkaicius(17));
 
 
 // 10. Parašyti funkciją telefonoNumeris. Funkcija turi priimti vieną kintamąjį - masyvą. Masyvo elementai - skaičiai, ilgis - Funkcija turi grąžinti telefono numerį tokiu formatu - 
